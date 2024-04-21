@@ -1,0 +1,975 @@
+ScreenManager:
+    Main:
+    LogIn:
+    LogIn_Student:
+    LogIn_Staff:
+    LogIn_Organization:
+    SignUp:
+    SignUp_Student:
+    SignUp_Staff:
+    SignUp_Organization:
+    Home:
+    Task:
+    Theme:
+
+    
+
+<Main>:
+    name: "main"
+    md_bg_color: 1, 1, 1, 1
+    MDFloatLayout:
+        Image:
+            source: "tuple.gif"
+            allow_stretch: True
+            anim_delay: .1
+            anim_reset: True
+            pos_hint: {"center_y": .7}
+        MDLabel:
+            text: "Manage your Daily Tasks"
+            font_style: "H5"
+            pos_hint: {"center_y": .3}
+            halign: "center"
+            bold: True
+        MDLabel:
+            text: "Scheduling and planning made easy"
+            font_style: "Body1"
+            pos_hint: {"center_y": .24}
+            halign: "center"
+        Button:
+            text: "Get Started"
+            font_style: "Subtitle1"
+            size_hint: .6, .065
+            pos_hint: {"center_x": .5, "center_y": .15}
+            background_color: 0, 0, 0, 0
+            style: "outlined"
+            color: rgba(52, 54, 231, 255)
+            on_release: 
+                root.manager.transition.direction = "left"
+                root.manager.current = "login"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                Line:
+                    width: 1.2
+                    rounded_rectangle: self.x, self.y, self.width, self.height, 5, 5, 5, 5, 100
+
+
+<LogIn>:
+    name: "login"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .93, "center_x": .1}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDLabel:
+            text: "Log in"
+            halign: "center"
+            pos_hint: {"center_y": .83}
+            bold: True
+            font_style: "H4"
+        MDLabel:
+            text: "Who are you?"
+            halign: "center"
+            theme_text_color: "Secondary"
+            pos_hint: {"center_y": .78}
+        Button:
+            background_normal: "stdent2.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .30, "center_y": .62}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "login_student"
+        MDLabel:
+            text: "STUDENT"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .30, "center_y": .50}
+        Button: 
+            background_normal: "teacher icon.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .70, "center_y": .62}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "login_staff"
+        MDLabel:
+            text: "STAFF"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .70, "center_y": .5}
+        Button: 
+            background_normal: "Organization GRP.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .37}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "login_organization"
+        MDLabel:
+            text: "ORGANIZATION"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .27}
+        MDLabel:
+            text: "Don't have an account?"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .1}
+            font_style: "Subtitle1"
+        MDTextButton:
+            text: "Sign up"
+            pos_hint: {"center_x": .50, "center_y": .07}
+            font_size: "12sp"
+            color: rgba(59, 129, 252, 255)
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup"
+            font_style: "Subtitle1"
+
+
+
+<LogIn_Student>:
+    name: "login_student"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .93}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "login"
+        MDLabel:
+            text: "Login"
+            halign: "center"
+            pos_hint: {"center_y": .93}
+            bold: True
+            font_style: "H5"
+        Image:
+            source: "stdent2.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .76}
+        MDFloatLayout:
+            MDTextField:
+                id: uname
+                hint_text: "Username"
+                pos_hint: {"center_x": 0.5, "center_y": 0.57}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: email
+                hint_text: "E-mail"
+                pos_hint: {"center_x": 0.5, "center_y": 0.47}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.37}
+                size_hint_x: None
+                width: 300
+                password: True
+        MDTextButton:
+            text: "Forgot Password?"
+            color: rgba(52, 54, 221, 255)
+            pos_hint: {"center_x": .50, "center_y": .31}
+            font_size: "12sp"
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup"
+        Button:
+            text: "LOG IN"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .23}
+            background_color: 0, 0, 0, 0
+            on_release:
+                app.verify_data(uname.text, email.text, password.text)
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+        MDLabel:
+            text: "or"
+            halign: "center"
+            pos_hint: {"center_y": .15}
+        MDIconButton:
+            icon: "google"
+            pos_hint: {"center_x": .5, "center_y": .08}
+            user_font_size: "30sp"
+            on_release: app.login()
+        MDIconButton:
+            icon: "facebook"
+            pos_hint: {"center_x": .19, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "microsoft"
+            pos_hint: {"center_x": .35, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "linkedin"
+            pos_hint: {"center_x": .65, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "apple"
+            pos_hint: {"center_x": .80, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+
+
+<LogIn_Staff>:
+    name: "login_staff"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .93}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "login"
+        MDLabel:
+            text: "Login"
+            halign: "center"
+            pos_hint: {"center_y": .93}
+            bold: True
+            font_style: "H5"
+        Image:
+            source: "teacher icon.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .76}
+        MDFloatLayout:
+            MDTextField:
+                id: uname
+                hint_text: "Username"
+                pos_hint: {"center_x": 0.5, "center_y": 0.57}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: email
+                hint_text: "E-mail"
+                pos_hint: {"center_x": 0.5, "center_y": 0.47}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.37}
+                size_hint_x: None
+                width: 300
+                password: True
+        MDTextButton:
+            text: "Forgot Password?"
+            color: rgba(52, 54, 221, 255)
+            pos_hint: {"center_x": .50, "center_y": .31}
+            font_size: "12sp"
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup"
+        Button:
+            text: "LOG IN"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .23}
+            background_color: 0, 0, 0, 0
+            on_release: 
+                app.verify_data(uname.text, email.text, password.text)
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+        MDLabel:
+            text: "or"
+            halign: "center"
+            pos_hint: {"center_y": .15}
+        MDIconButton:
+            icon: "google"
+            pos_hint: {"center_x": .5, "center_y": .08}
+            user_font_size: "30sp"
+            on_release: app.login()
+        MDIconButton:
+            icon: "facebook"
+            pos_hint: {"center_x": .19, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "microsoft"
+            pos_hint: {"center_x": .35, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "linkedin"
+            pos_hint: {"center_x": .65, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "apple"
+            pos_hint: {"center_x": .80, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+
+<LogIn_Organization>:
+    name: "login_organization"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .93}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "login"
+        MDLabel:
+            text: "Login"
+            halign: "center"
+            pos_hint: {"center_y": .93}
+            bold: True
+            font_style: "H5"
+        Image:
+            source: "Organization GRP.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .76}
+        MDFloatLayout:
+            MDTextField:
+                id: uname
+                hint_text: "Username"
+                pos_hint: {"center_x": 0.5, "center_y": 0.57}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: email
+                hint_text: "E-mail"
+                pos_hint: {"center_x": 0.5, "center_y": 0.47}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.37}
+                size_hint_x: None
+                width: 300
+                password: True
+        MDTextButton:
+            text: "Forgot Password?"
+            color: rgba(52, 54, 221, 255)
+            pos_hint: {"center_x": .50, "center_y": .31}
+            font_size: "12sp"
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup"
+        Button:
+            text: "LOG IN"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .23}
+            background_color: 0, 0, 0, 0
+            on_release:
+                app.verify_data(uname.text, email.text, password.text)
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+        MDLabel:
+            text: "or"
+            halign: "center"
+            pos_hint: {"center_y": .15}
+        MDIconButton:
+            icon: "google"
+            pos_hint: {"center_x": .5, "center_y": .08}
+            user_font_size: "30sp"
+            on_release: app.login()
+        MDIconButton:
+            icon: "facebook"
+            pos_hint: {"center_x": .19, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "microsoft"
+            pos_hint: {"center_x": .35, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "linkedin"
+            pos_hint: {"center_x": .65, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "apple"
+            pos_hint: {"center_x": .80, "center_y": .08}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+
+<SignUp>:
+    name: "signup"
+    MDFloatLayout:
+        MDLabel:
+            text: "Sign Up"
+            halign: "center"
+            pos_hint: {"center_y": .83}
+            bold: True
+            font_style: "H4"
+        MDLabel:
+            text: "Who are you?"
+            halign: "center"
+            theme_text_color: "Secondary"
+            pos_hint: {"center_y": .78}
+        Button:
+            background_normal: "stdent2.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .30, "center_y": .62}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup_student"
+        MDLabel:
+            text: "STUDENT"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .30, "center_y": .50}
+        Button: 
+            background_normal: "teacher icon.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .70, "center_y": .62}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup_staff"
+        MDLabel:
+            text: "STAFF"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .70, "center_y": .5}
+        Button: 
+            background_normal: "Organization GRP.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .37}
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup_organization"
+        MDLabel:
+            text: "ORGANIZATION"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .27}
+        MDLabel:
+            text: "Already have an account?"
+            font_size: "12sp"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .1}
+            font_style: "Subtitle1"
+        MDTextButton:
+            text: "Login Here"
+            pos_hint: {"center_x": .50, "center_y": .07}
+            font_size: "12sp"
+            color: rgba(59, 129, 252, 255)
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "login"
+            font_style: "Subtitle1"
+
+
+<SignUp_Student>:
+    name: "signup_student"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .93}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "signup"
+        MDLabel:
+            text: "Sign Up"
+            halign: "center"
+            pos_hint: {"center_y": .93}
+            bold: True
+            font_style: "H5"
+        Image:
+            source: "stdent2.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .76}
+        MDFloatLayout:
+            MDTextField:
+                id: uname
+                hint_text: "Username"
+                pos_hint: {"center_x": 0.5, "center_y": 0.57}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: email
+                hint_text: "E-mail"
+                pos_hint: {"center_x": 0.5, "center_y": 0.47}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.37}
+                size_hint_x: None
+                width: 300
+                password: True
+            MDTextField:
+                hint_text: "Confirm Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.27}
+                size_hint_x: None
+                width: 300
+                password: True
+        Button:
+            text: "SIGN UP"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .18}
+            background_color: 0, 0, 0, 0
+            on_release:
+                app.send_data(uname.text, email.text, password.text)
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+
+
+<SignUp_Staff>:
+    name: "signup_staff"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .93}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "signup"
+        MDLabel:
+            text: "Sign Up"
+            halign: "center"
+            pos_hint: {"center_y": .93}
+            bold: True
+            font_style: "H5"
+        Image:
+            source: "teacher icon.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .76}
+        MDFloatLayout:
+            MDTextField:
+                id: uname
+                hint_text: "Username"
+                pos_hint: {"center_x": 0.5, "center_y": 0.57}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: email
+                hint_text: "E-mail"
+                pos_hint: {"center_x": 0.5, "center_y": 0.47}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.37}
+                size_hint_x: None
+                width: 300
+                password: True
+            MDTextField:
+                hint_text: "Confirm Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.27}
+                size_hint_x: None
+                width: 300
+                password: True
+        Button:
+            text: "SIGN UP"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .18}
+            background_color: 0, 0, 0, 0
+            on_release: 
+                app.send_data(uname.text, email.text, password.text)
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+        MDLabel:
+            text: "or"
+            halign: "center"
+            pos_hint: {"center_y": .12}
+        MDIconButton:
+            icon: "google"
+            pos_hint: {"center_x": .5, "center_y": .07}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "facebook"
+            pos_hint: {"center_x": .19, "center_y": .07}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "microsoft"
+            pos_hint: {"center_x": .35, "center_y": .07}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "linkedin"
+            pos_hint: {"center_x": .65, "center_y": .07}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+        MDIconButton:
+            icon: "apple"
+            pos_hint: {"center_x": .80, "center_y": .07}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "main"
+
+
+<SignUp_Organization>:
+    name: "signup_organization"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .93}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "signup"
+        MDLabel:
+            text: "Sign Up"
+            halign: "center"
+            pos_hint: {"center_y": .93}
+            bold: True
+            font_style: "H5"
+        Image:
+            source: "Organization GRP.png"
+            size_hint: .33, .2
+            pos_hint: {"center_x": .5, "center_y": .76}
+        MDFloatLayout:
+            MDTextField:
+                id: uname
+                hint_text: "Username"
+                pos_hint: {"center_x": 0.5, "center_y": 0.57}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: email
+                hint_text: "E-mail"
+                pos_hint: {"center_x": 0.5, "center_y": 0.47}
+                size_hint_x: None
+                width: 300
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.37}
+                size_hint_x: None
+                width: 300
+                password: True
+            MDTextField:
+                hint_text: "Confirm Password"
+                pos_hint: {"center_x": 0.5, "center_y": 0.27}
+                size_hint_x: None
+                width: 300
+                password: True
+        Button:
+            text: "SIGN UP"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .18}
+            background_color: 0, 0, 0, 0
+            on_release:
+                app.send_data(uname.text, email.text, password.text)
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+
+
+
+<Home>:
+    name: "home"
+
+    MDNavigationLayout:
+        ScreenManager:
+            MDScreen:
+                BoxLayout:
+                    orientation: "vertical"
+                    MDTopAppBar:
+                        title: "TimeTrack"
+                        left_action_items: [["menu", lambda x: nav_drawer.set_state("toggle")]]
+                        right_action_items: [["clock", lambda x: app.Date()]]
+                        elevation: 10
+
+                    MDBottomNavigation:
+                        MDBottomNavigationItem:
+                            text: "Overview"
+                            name: "Overview"
+                            icon: "google"
+                            ScrollView:
+                                do_scroll_x: False
+                                do_scroll_y: True
+                                BoxLayout:
+                                    orientation: "vertical"
+                                    id: sec_layout
+                                    padding: 8
+                                    size_hint_y: None
+                                    height: 1000
+                                    spacing: 20
+                                    Image:
+                                        source: "mountain.jpeg"
+                                        size_hint_y: 1
+                                    Image:
+                                        source: "weapon.jpg"
+                                        size_hint_y: .8
+                                        elevation: 1
+                                    Image:
+                                        source: "reading.jpeg"
+                                        size_hint_y: .8
+                                    Image:
+                                        source: "apple.jpeg"
+                                        size_hint_y: .8
+                
+                                    
+                        MDBottomNavigationItem:
+                            text: "Tasks"
+                            name: "Tasks"
+                            icon: "plus"
+                            MDFloatLayout:
+                                ScrollView:
+                                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                                    size_hint: .9, .8
+                                    MDList:
+                                        id: container 
+                                MDFloatingActionButton:
+                                    icon: "plus-thick"
+                                    on_release: app.show_task_dialog()
+                                    elevation_normal: 12
+                                    pos_hint: {"x": .45, "y": .04}
+                        
+        
+        
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, dp(16), dp(16), 0)
+            BoxLayout:
+                orientation: "vertical"
+                Image:
+                    source: "mountain.jpeg"
+                    size_hint_y: .35
+                    pos_hint: {"top": 1}
+                    radius: "36dp", "36dp", "36dp", "36dp" 
+                MDLabel:
+                    text: "David Nkaha"
+                    font_style: "Subtitle1"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDLabel:
+                    text: "davidnkaha@gmail.com"
+                    font_style: "Subtitle1"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                ScrollView:
+                    MDList:
+
+                        OneLineIconListItem:
+                            text: "Profile"
+                            IconLeftWidget:
+                                icon: "information-outline"
+
+                        OneLineIconListItem:
+                            text: "Tasks"
+                            on_release:
+                                root.manager.transition.direction = "left"
+                                root.manager.current = "task"
+                            IconLeftWidget:
+                                icon: "information-outline"
+                                
+
+                        OneLineIconListItem:
+                            text: "Theme"
+                            on_release:
+                                root.manager.transition.direction = "left"
+                                root.manager.current = "theme"
+                            IconLeftWidget:
+                                icon: "information-outline"
+
+                        OneLineIconListItem:
+                            text: "Logout"
+                            on_release:
+                                root.manager.transition.direction = "left"
+                                root.manager.current = "login"
+                            IconLeftWidget:
+                                icon: "information-outline"
+                                
+
+                        
+<DialogContent>:
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint: 1, None
+    height: "130dp"
+    GridLayout:
+        rows: 1
+        MDTextField:
+            id: task_text
+            hint_text: "Add Task ..."
+            pos_hint: {"center_y": .4}
+            max_text_length: 50
+            on_text_validate: (app.adding_tasks(task_text, date_text.text), app.close_dialog())
+        MDIconButton:
+            icon: "calendar"
+            on_release:
+                root.show_date_pick()
+            padding: "10dp"
+    MDLabel:
+        spacing: "10dp"
+        id: date_text
+
+    BoxLayout:
+        orientation: "horizontal"
+
+        MDRaisedButton:
+            text: "Save"
+            on_release: (app.adding_tasks(task_text, date_text.text), app.close_dialog())
+
+        MDFlatButton:
+            text: "CANCEL"
+            on_release: app.close_dialog()
+
+
+<ListItemWithCheckbox>:
+    id: the_list_item
+    markup: True
+
+    LeftCheckBox:
+        id: check
+        on_release: root.mark(check, the_list_item)
+
+    IconRightWidget:
+        icon: "trash-can-outline"
+        theme_text_color: "Custom"
+        text_color: 1, 0, 0, 1
+        on_release: root.delete_item(the_list_item)
+
+<Task>:
+    name: "task"
+    MDFloatLayout:
+        MDLabel:
+            id: task_label
+            halign: 'center'
+            markup: True
+            text: "[u][size=48][b]Tasks[/b][/size][/u]"
+            pos_hint: {'y': .45}
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .95}
+            user_font_size: "30sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+
+        ScrollView:
+            pos_hint: {'center_y': .5, 'center_x': .5}
+            size_hint: .9, .8
+
+            MDList:
+                id: container
+ 
+        MDFloatingActionButton:
+            icon: 'plus-thick'
+            on_release: 
+                app.show_task_dialog()
+            elevation_normal: 12
+            pos_hint: {'x': .45 , 'y': .04}
+
+<Theme>:
+    name: "theme"
+    MDFloatLayout:
+        MDIconButton:
+            icon: "close"
+            pos_hint: {"center_x": .07, "center_y": .93}
+            user_font_size: "40sp"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.manager.current = "home"
+        MDLabel:
+            text: "Themes"
+            halign: "center"
+            pos_hint: {"center_y": .93}
+            bold: True
+            font_style: "H5"
+        MDLabel:
+            text: "           Dark Mode"
+            halign: "left"
+            pos_hint: {"center_y": .85}
+            bold: True
+            font_style: "H6"
+        MDSwitch:
+            pos_hint: {"center_x": .8, "center_y": .84}
+            width: "35dp"
+            on_active: app.check(*args)
+        Button:
+            text: "LOG IN"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .23}
+            background_color: 0, 0, 0, 0
+            on_release: 
+                app.show_themepicker()
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 54, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
