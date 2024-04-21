@@ -1,5 +1,5 @@
 # Timetable Scheduling App
-![(https://github.com/CogniCraft7/Timetable-Scheduling-App/blob/main/Material.png)]
+![](https://github.com/CogniCraft7/Timetable-Scheduling-App/blob/main/Material.png)
 ![caption will be here][image file path]
 ![caption will be here][image file path]
 ## PROBLEM
